@@ -7,21 +7,25 @@ export class BLEDevice implements Device {
   private readonly CHARACTERISTIC_UUID = 'beb5483e-36e1-4688-b7f5-ea07361b26a8';
 
   async connect(): Promise<void> {
-    if (!('bluetooth' in navigator)) {
+    const nav = navigator as any;
+    if (!('bluetooth' in nav)) {
       alert('您的浏览器不支持Web Bluetooth API，请使用Chrome或Edge浏览器');
       throw new Error('Web Bluetooth API not supported');
     }
 
     try {
-      this.device = await navigator.bluetooth.requestDevice({
+      this.device = await nav.bluetooth.requestDevice({
         filters: [{ services: [this.SERVICE_UUID] }]
       });
-
-      const server = await this.device.gatt?.connect();
-      if (!server) {
-        throw new Error('GATT server connection failed');
+      if (!this.device) {
+        throw new Error('Failed to request device');
+      }
+      const gatt = this.device.gatt;
+      if (!gatt) {
+        throw new Error('GATT server not available');
       }
 
+      const server = await gatt.connect();
       const service = await server.getPrimaryService(this.SERVICE_UUID);
       this.characteristic = await service.getCharacteristic(this.CHARACTERISTIC_UUID);
 

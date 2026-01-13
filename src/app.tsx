@@ -138,7 +138,7 @@ export function App() {
             <label className="block mb-2">设备类型</label>
             <select
               value={deviceType}
-              onChange={(e) => setDeviceType(e.target.value as DeviceType)}
+              onChange={(e) => setDeviceType((e.currentTarget as HTMLSelectElement).value as DeviceType)}
               disabled={isConnected}
               className="w-full bg-gray-700 rounded px-3 py-2 disabled:opacity-50"
             >
@@ -155,7 +155,7 @@ export function App() {
               <input
                 type="text"
                 value={wsUrl}
-                onChange={(e) => setWsUrl(e.target.value)}
+                onChange={(e) => setWsUrl((e.currentTarget as HTMLInputElement).value)}
                 disabled={isConnected}
                 placeholder="ws://localhost:8080"
                 className="w-full bg-gray-700 rounded px-3 py-2 disabled:opacity-50"
@@ -184,7 +184,7 @@ export function App() {
               min="1"
               max="200"
               value={sendFrequency}
-              onChange={(e) => setSendFrequency(Number(e.target.value))}
+              onChange={(e) => setSendFrequency(Number((e.currentTarget as HTMLInputElement).value))}
               className="w-full"
             />
           </div>
@@ -197,7 +197,7 @@ export function App() {
               min="0"
               max="5000"
               value={randomMin}
-              onChange={(e) => setRandomMin(Number(e.target.value))}
+              onChange={(e) => setRandomMin(Number((e.currentTarget as HTMLInputElement).value))}
               className="w-full"
             />
           </div>
@@ -209,7 +209,7 @@ export function App() {
               min="0"
               max="5000"
               value={randomMax}
-              onChange={(e) => setRandomMax(Number(e.target.value))}
+              onChange={(e) => setRandomMax(Number((e.currentTarget as HTMLInputElement).value))}
               className="w-full"
             />
           </div>
@@ -223,7 +223,7 @@ export function App() {
               step="0.01"
               value={amplitudeMin}
               onChange={(e) => {
-                const val = Number(e.target.value)
+                const val = Number((e.currentTarget as HTMLInputElement).value)
                 if (val <= amplitudeMax) {
                   setAmplitudeMin(val)
                 }else{
@@ -243,7 +243,7 @@ export function App() {
               step="0.01"
               value={amplitudeMax}
               onChange={(e) => {
-                const val = Number(e.target.value)
+                const val = Number((e.currentTarget as HTMLInputElement).value)
                 if (val >= amplitudeMin) {
                   setAmplitudeMax(val)
                 }else{
