@@ -44,6 +44,15 @@ export function App() {
   }
 
   const handleConnect = async () => {
+    // 对于 serial 和 ble 设备，必须使用 HTTPS 协议
+    if (deviceType === 'serial' || deviceType === 'ble') {
+      if (window.location.protocol !== 'https:') {
+        const httpsUrl = `https://${window.location.host}${window.location.pathname}${window.location.search}`
+        window.location.href = httpsUrl
+        return
+      }
+    }
+
     try {
       const device = createDevice()
       await device.connect()
