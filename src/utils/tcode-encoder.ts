@@ -3,5 +3,5 @@ export function encodeTCode(value: number): string {
     value = 0.9999;
   }
   const scaled = Math.floor(value * 10000);
-  return `L0${scaled}`;
+  return `L0${scaled}\n`;
 }
